@@ -1,0 +1,71 @@
+#site-footer
+  <!-- Paginas amigas -->
+  - if get_friend_pages.count > 0
+    .footer-widgets.alt
+      .section.with-carousel
+        .container
+          .row.carousel-container.clients
+            .col-xs-12.col-sm-12
+              %h4.section-title P&aacute;ginas amigas
+              .section-body
+                <!-- carousel control nav direction -->
+                .control-direction
+                  %ul.direction-nav.carousel-direction
+                    %li
+                      %a.carousel-prev.btn.disabled{:href => "#", :style => "display: block;"}
+                        %span.icon-arrow_left
+                    %li
+                      %a.carousel-next.btn{:href => "#", :style => "display: block;"}
+                        %span.icon-arrow_right
+                <!-- /carousel control nav direction -->
+
+                <!-- carousel wrapper -->
+                .carousel-wrapper.row{:data => {:speed => "300", :slideshow => {:speed => "2000"}, :autoplay => "false", :loop => "false", :maxitems => "4", :minitems => "1"}}
+                  .caroufredsel_wrapper{:style => "display: block; text-align: start; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; z-index: auto; width: 1168px; height: 97px; margin: 0px; overflow: hidden; cursor: move;"}
+                    %ul.clients-list.carousel-list.landscape.animated.animation-done.fadeInUp{:data => {:animation => "fadeInUp", :style => "text-align: left; float: none; position: absolute; top: 0px; right: auto; bottom: auto; left: 0px; margin: 0px; width: 5256px; height: 97px;"}}
+                      - get_friend_pages.each do |page|
+                        %li{:style => "width: 292px;"}
+                          .item
+                            %a{:title => page.name, :href => page.url}
+                              %p= page.name
+                              %p= page.description
+                <!-- /carousel wrapper -->
+  <!-- footer -->
+  .footer-widgets.main
+    .container
+      .row
+        .col-xs-6.col-sm-3.col-lg-2
+          .widget.widget-linklist
+            .widget-body
+              %h4.widget-title Secciones
+              %ul
+                %li= link_to('› Qui&eacute;nes somos'.html_safe, portada_path)
+                %li= link_to('› Cat&aacute;logo'.html_safe, items_path)
+                %li
+                  %ul
+                    %li= link_to('› Tesis'.html_safe, category_path(:tesis))
+                    %li= link_to('› Memorias'.html_safe, category_path(:memorias))
+                    %li= link_to('› Ensayos'.html_safe, category_path(:ensayos))
+
+        .col-xs-6.col-sm-3.col-lg-2
+          .widget.widget-linklist
+            .widget-body
+              %h4.widget-title &nbsp;
+              %ul
+                %li= link_to('› Revista Katatay'.html_safe, category_path(:revistas))
+                %li= link_to('› Distribuci&oacute;n'.html_safe, distribution_path)
+                %li= link_to('› Contacto', contact_path)
+
+        .col-sm-3.pull-right
+          .row
+            .col-sm-9
+              %a{:href => 'http://www.redkatatay.org/sitio/', :target => '_blank'}
+                =image_tag('logo_footer.png', :onmouseover => "this.src='/assets/logo_footer_over.png'", :onmouseout => "this.src = '/assets/logo_footer.png'")
+            .col-sm-3
+              %a{:href => 'https://www.facebook.com/KatatayRedDeEstudiosLatinoamericanos', :target => '_blank'}
+                =image_tag('facebook_footer.png')
+  .sub-footer
+    .container
+      .row
+        .col-xs-12.col-sm-6.copyright.center-sm Copyright © 2013 Ediciones Katatay | Todos los derechos reservados.
+<!-- /SITE FOOTER -->

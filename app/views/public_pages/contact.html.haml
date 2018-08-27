@@ -1,0 +1,45 @@
+.section
+  .container
+    .row
+      .col-xs-12.col-sm-12
+        %h4.section-title Contacto
+        .section-body
+          .col-md-8.col-lg-offset-2
+            .row.hidden#formulario_correcto
+              .section
+                %p.lead
+                  %span.glyphicon.glyphicon-ok
+                  El mensaje fue enviado correctamente.
+            .row
+              .modal.fade#errors_contact_modal
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      %button.close{:type => "button", :data => {:dismiss => "modal"}, :aria => {:hidden => "true"}} &times;
+                      %h4.modal-title Error en el formulario
+                    .modal-body
+                      %p Se produjo un error al enviar el formulario. Verifique que los datos ingresados sean correctos.
+                    .modal-footer
+                      %button.btn.btn-default{:type => "button", :data => {:dismiss => "modal"}} Cerrar
+              .section
+                #note
+                .section-body.contact-form
+                  = form_for @contact_form, url: {action: "create"}, :html => {:id => 'contact-form', :class => 'form-horizontal contact'} do |f|
+                    .form-group
+                      %label.col-xs-12.col-sm-3.required{:for => "contact_name"} Nombre
+                      .col-xs-12.col-sm-12.col-md-9= f.text_field(:name, :class => 'form-control', :required => 'required')
+                    .form-group
+                      %label.col-xs-12.col-sm-3.required{:for => "contact_email"} Email
+                      .col-xs-12.col-sm-12.col-md-9= f.email_field(:email, :class => 'form-control', :required => 'required')
+                    .form-group
+                      %label.col-xs-12.col-sm-3.required{:for => "contact_subject"} Asunto
+                      .col-xs-12.col-sm-12.col-md-9= f.text_field(:subject, :class => 'form-control', :required => 'required')
+                    .form-group
+                      .col-xs-12.col-sm-12= f.text_area(:message, :class => 'form-control', :required => 'required')
+                    .form-group
+                      .col-xs-12.col-sm-12= recaptcha_tags
+                    .form-group
+                      .col-xs-12.col-sm-12
+                        %input.btn.btn-primary{:type => "submit", :value => "Enviar"}
+                .row.pull-right
+                  .col-md-12= @contact.text.html_safe

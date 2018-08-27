@@ -1,0 +1,27 @@
+.section
+  .container
+    .row
+      .col-xs-12.col-sm-12
+        %h4.section-title Distribuci&oacute;n
+        .section-body
+          .row
+            .col-md-12
+              = @distribucion.text.html_safe
+          .col-md-12
+            - Country.joins(states: {cities: :distributors}).distinct.where(:name => 'Argentina').each do |country|
+              .row
+              - State.joins(cities: :distributors).where('country_id = ?', country.id).order(position: :asc).distinct.each do |state|
+                .row
+                  .col-md-12
+                    - City.joins(:distributors).where('state_id = ?', state.id).order(position: :asc).distinct.each do |city|
+                      %hr
+                      .row
+                        .col-md-3
+                          %h4= city.name + ' (' + state.name + ')'
+                        .col-md-9
+                          - Distributor.where('city_id = ?', city.id).distinct.each do |distributor|
+                            .col-md-5
+                              .row.distributor
+                                %p
+                                  %strong= distributor.name
+                                %p= distributor.address

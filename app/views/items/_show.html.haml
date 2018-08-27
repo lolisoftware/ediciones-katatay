@@ -1,0 +1,32 @@
+.mix.col-xs-12.col-sm-6.col-lg-4
+  .product
+    %a.product-link.clearfix{:href => '#'}
+      .product-thumbnail
+        %a{:href => item_path(item)}
+          = image_tag(item.image.url(:medium))
+        .caption.bottom-left
+          $
+          = item.price.to_i
+    .product-info.clearfix
+      %h4.title
+        %a{:href => item_path(item)}= item.title
+      .description
+        .text
+          = item.subtitle
+          %p
+            Autor:
+            = item.author
+        - if item.has_stock && item.category.name != 'ediciones digitales'
+          .add-to-cart
+            = form_for @cart_form, url: cart_add_path(item) do |f|
+              = f.hidden_field(:amount, :value => "1")
+              %a.btn.btn-primary.btn-iconed.add-to-cart{:title => 'Agregar al carro', :href => '#'}
+                %i.icon-shopcart
+                %span Agregar al carrito
+        - else
+          - if item.category.name != 'ediciones digitales'
+            %span.add-to-cart Sin Stock
+          - else
+            %a.btn.btn-primary.btn-iconed.add-to-cart{:title => 'Compra Digital', :href => '#'}
+              %i.icon-shopcart
+              %span Compra Digital

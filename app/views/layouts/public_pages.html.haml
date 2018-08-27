@@ -1,0 +1,17 @@
+!!! 5
+%html
+  %head
+    %title Katatay
+    = stylesheet_link_tag "public_pages", media: "all"
+    = csrf_meta_tags
+  %body
+    #page-wrapper
+      #site-header
+        = render 'public_pages/top'
+        = render 'public_pages/header'
+        = render 'public_pages/menu'
+      #site-content
+        = render 'public_pages/flashes'
+        = yield
+      = render 'public_pages/footer'
+    = javascript_include_tag "public_pages"

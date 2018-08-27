@@ -1,0 +1,30 @@
+<!-- Navigation menu -->
+#site-menu
+  .container
+    .inner
+      <!-- main menu -->
+      %ul.main-menu.menu.material.pull-left
+        = nav_link('Qui&eacute;nes somos'.html_safe, portada_path)
+        = nav_link('Cat&aacute;logo'.html_safe, items_path, {'Tesis' => category_path(:tesis), 'Memorias' => category_path(:memorias), 'Ensayos' => category_path(:ensayos)})
+        = nav_link('Revista Katatay'.html_safe, category_path('revista katatay'))
+        = nav_link('Ediciones Digitales'.html_safe, category_path('ediciones digitales'))
+        = nav_link('Referato'.html_safe, referato_path)
+        = nav_link('Distribuci&oacute;n'.html_safe, distribution_path)
+        = nav_link('Contacto'.html_safe, contact_path)
+      <!-- /main menu -->
+
+      %ul.main-menu.menu.pull-right
+        - if user_signed_in?
+          %li
+            %a{:href => edit_user_registration_path} Mi cuenta
+          %li
+            = link_to('Salir', destroy_user_session_path, :method => :delete)
+          - if current_user.admin?
+            %li
+              = link_to('Admin', rails_admin_path)
+        - else
+          %li
+            = link_to('Entrar', new_user_session_path)
+          %li
+            = link_to('Registro', new_user_registration_path)
+<!-- /Navigation menu -->

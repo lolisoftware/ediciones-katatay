@@ -1,0 +1,41 @@
+.col-sm-6.col-md-4.padding-bottom-20.fix_height
+  .thumbnail
+    .row.text-center
+      .col-md-12
+        %a{:href => item_path(item)}
+          = image_tag(item.image.url(:medium))
+    .caption
+      - if item.category.name == 'revista katatay'
+        %h4.title
+          = link_to(item.subtitle, item_path(item))
+        %h4
+          = item.author
+          = item.title
+      - else
+        %h4.title
+          = link_to(item.title, item_path(item))
+        %h4.details
+          %p
+            Autor:
+            = item.author
+      - if item.has_stock && item.category.name != 'ediciones digitales'
+        = form_for @cart_form, url: cart_add_path(item) do |f|
+          = f.hidden_field(:amount, :value => "1")
+          %a.add-to-cart{:href => "#"}
+            %span.icon-shopcart
+              $
+              = item.price.to_i
+          - if item.fulltext.exists?
+            %a{:href => item_path(item), :style => 'font-size: 15px; color: red; float: right; margin-top: 7px !important'}
+              Descargar
+      - else
+        - if item.category.name == 'ediciones digitales'
+          = form_for item, method: 'post', url: digital_buy_path(:id => item.id) do |f|
+            .add-to-cart
+              %a.add-to-cart{:title => "Compra Digital", :href => "#"}
+                %span.icon-shopcart
+                  $
+                  = item.price.to_i 
+                  (Compra Digital)
+        - if item.category.name != 'ediciones digitales'
+          %span.add-to-cart Sin Stock

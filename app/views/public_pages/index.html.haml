@@ -1,0 +1,7 @@
+.section.with-carousel
+  .container
+    .row.carousel-container.offer
+      .col-xs-12.col-sm-12
+        %h4.section-title Novedades
+        .section-body
+          = render :partial => 'items/item_portada', :collection => @items_news, :as => :item

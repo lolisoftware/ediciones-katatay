@@ -1,0 +1,16 @@
+<div class="section with-carousel">
+  <div class="container">
+    <div class="row carousel-container offer">
+      <div class="col-xs-12 col-sm-12">
+        <div class="section-body">
+          <% @libros.each do |item| %>
+              <%= render partial: 'item', locals: {:item => item} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <%= paginate @libros %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+- if flash.count > 0
+  .container
+    .row
+      .col-md-10.col-md-offset-2
+        .section
+          .section-body
+            - flash.each do |name, msg|
+              .row
+                .col-md-12.alert.alert-danger
+                  %button.close{:type => "button", :data => {:dismiss => "alert"}, :aria => {:hidden => "true"}} &times;
+                  %p= msg

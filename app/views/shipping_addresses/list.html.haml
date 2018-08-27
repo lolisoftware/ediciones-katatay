@@ -1,0 +1,58 @@
+.section
+  .container
+    .row
+      .col-xs-12.col-sm-12
+        %h4.section-title Direcci&oacute;n de env&iacute;o
+        .section-body
+          - if @addresses.empty?
+            %p No hay direcciones de env&iacute;o cargadas.
+          - else
+            =form_tag(shipping_addresses_select_path, :method => :post, :id => 'existing-address') do |f|
+              %table.table.table-striped
+                %thead
+                  %tr
+                    %th
+                    %th Direcci&oacute;n
+                    %th C&oacute;digo postal
+                    %th Ciudad
+                    %th Provincia
+                    %th Pa&iacute;s
+                %tbody
+                  - @addresses.each do |address|
+                    %tr
+                      %td= radio_button_tag("selected_address", address.id)
+                      %td= address.address
+                      %td= address.postal_code
+                      %td= address.city
+                      %td= address.state.name if !address.state.nil?
+                      %td= address.country.name
+          .space40
+          %h5.section-title Nueva direcci&oacute;n
+          = form_for @address_form, url: shipping_addresses_create_path, :html => {:class => 'form-horizontal', :id => 'new-address'} do |f|
+            .form-group
+              %label.col-xs-12.col-sm-3{:for => "selected_address"} Nueva
+              .col-xs-12.col-sm-12.col-md-9= radio_button_tag("selected_address", "new")
+            .form-group
+              %label.col-xs-12.col-sm-3.required{:for => "shipping_address_country"} Pa&iacute;s
+              .col-xs-12.col-sm-12.col-md-9= f.collection_select(:country_id, Country.all, :id, :name, {}, {:class => 'form-control', :required => 'required'})
+            #shipping_address_state_group.form-group
+              %label.col-xs-12.col-sm-3{:for => "shipping_address_state"} Provincia
+              .col-xs-12.col-sm-12.col-md-9= f.collection_select(:state_id, State.all, :id, :name, {}, {:class => 'form-control', :required => 'required'})
+            .form-group
+              %label.col-xs-12.col-sm-3.required{:for => "shipping_address_city"} Ciudad
+              .col-xs-12.col-sm-12.col-md-9= f.text_field(:city, :class => 'form-control', :required => 'required')
+            .form-group
+              %label.col-xs-12.col-sm-3.required{:for => "shipping_address_address"} Direcci&oacute;n
+              .col-xs-12.col-sm-12.col-md-9= f.text_area(:address, :class => 'form-control', :required => 'required')
+            .form-group
+              %label.col-xs-12.col-sm-3.required{:for => "shipping_address_postal_code"} C&oacute;digo postal
+              .col-xs-12.col-sm-12.col-md-9= f.text_field(:postal_code, :class => 'form-control', :required => 'required')
+          .space40
+          .actions
+            %ul.list-unstyled.list-inline
+              %li
+                %button.confirm-address.btn.btn-primary.btn-iconed
+                  %i.icon-arrow-right
+                  %span Confirmar direcci&oacute;n
+              %li
+                %a{:title => "Volver", :href => cart_path} Volver al carrito

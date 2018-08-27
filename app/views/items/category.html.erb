@@ -1,0 +1,22 @@
+<div class="section with-carousel">
+  <div class="container">
+    <div class="row carousel-container offer">
+      <div class="col-xs-12 col-sm-12">
+        <h4 class="section-title">
+          <%= @category %>
+        </h4>
+
+        <div class="section-body">
+          <div class="row">
+            <% @items.each do |item| %>
+                  <%= render partial: 'item', locals: {:item => item} %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>

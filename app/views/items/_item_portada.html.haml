@@ -1,0 +1,33 @@
+.col-sm-6.col-md-4.padding-bottom-20
+  .thumbnail
+    .row.text-center
+      .col-md-12
+        %a{:href => item_path(item)}
+          - if item.category.name == 'revista katatay'
+            = image_tag(item.image.url(:medium), :style => 'height: 390px !important;')
+          - else
+            = image_tag(item.image.url(:medium))
+    .caption
+      - if item.category.name == 'revista katatay'
+        %h4.title
+          = link_to(item.subtitle, item_path(item))
+        %h4
+          = item.author
+          = item.title
+      - else
+        .padding-bottom-80
+        %h4.title
+          = link_to(item.title, item_path(item))
+        %h4.details
+          %p
+            Autor:
+            = item.author
+      - if item.has_stock
+        = form_for @cart_form, url: cart_add_path(item) do |f|
+          = f.hidden_field(:amount, :value => "1")
+          %a.add-to-cart{:href => "#"}
+            %span.icon-shopcart
+              $
+              = item.price.to_i
+      - else
+        %span.add-to-cart Sin Stock

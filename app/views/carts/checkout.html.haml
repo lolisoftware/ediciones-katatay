@@ -1,0 +1,45 @@
+.section
+  .container
+    .row
+      .col-xs-12.col-sm-12
+        %h4.section-title Resumen del pago y envío
+        .section-body
+          %table.table.table-striped
+            %thead
+              %tr
+                %th &iacute;tem
+                %th Precio unitario
+                %th Cantidad
+                %th Precio total
+            %tbody
+              - @carts.each do |cart|
+                %tr
+                  %td= cart.item.title
+                  %td= cart.item.price
+                  %td= cart.amount
+                  %td.total-price= cart.item.price * cart.amount
+              %tr
+                %td Total
+                %td
+                %td
+                %td.total-price= @carts.inject(0) {|sum, cart| sum + cart.item.price * cart.amount}
+          .space20
+          %table.table.table-striped
+          %table.table.table-striped
+            %thead
+              %tr
+                %th Direcci&oacute;n
+                %th C&oacute;digo postal
+                %th Ciudad
+                %th Provincia
+                %th Pa&iacute;s
+                %th Costo de env&iacute;o
+            %tbody
+              %tr
+                %td= @address.address
+                %td= @address.postal_code
+                %td= @address.city
+                %td= @address.state.name if !@address.state.nil?
+                %td= @address.country.name
+                %td= @order.shipping_cost
+          %a.btn.btn-primary{:href => @init_payment} Pagar

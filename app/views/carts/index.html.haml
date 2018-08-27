@@ -1,0 +1,46 @@
+.section
+  .container
+    .row
+      .col-xs-12.col-sm-12
+        %h4.section-title Contenido del carrito
+        .section-body
+          - if @cart_items.empty?
+            %p No hay &iacute;tems en el carrito.
+          - else
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th &iacute;tem
+                  %th Precio unitario
+                  %th Cantidad
+                  %th Precio total
+                  %th Quitar
+              %tbody
+                - @cart_items.each do |cart|
+                  %tr
+                    %td= cart.item.title
+                    %td= cart.item.price
+                    %td
+                      %form{:action => cart_update_path(cart.id), :method => :post}
+                        %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+                        %input.item-amount{:type => "text", :value => cart.amount, :name => "amount", :required => 'required', :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Presione Actualizar luego de modificar la cantidad"}
+                        %input.update-cart.btn{:type => "button", :value => "Actualizar"}
+                    %td.total-price= cart.item.price * cart.amount
+                    %td
+                      %form{:action => cart_delete_path(cart.id), :method => :post}
+                        %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+                        %a.delete-cart{:title => "Vaciar", :href => "#"}
+                          %i.icon-remove
+            .space40
+            .actions
+              %ul.list-unstyled.list-inline
+                %li
+                  %form{:action => shipping_addresses_path, :method => :post, :class => "inline-form"}
+                    %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+                    %a.checkout.btn.btn-primary.btn-iconed{:title => "Confirmar", :href => "#"}
+                      %i.icon-arrow-right
+                      %span Confirmar compra
+                %li
+                  %a{:title => "Continuar", :href => items_path} Continuar comprando
+                %li
+                  %a{:title => "Vaciar", :href => cart_empty_path} Vaciar el carrito

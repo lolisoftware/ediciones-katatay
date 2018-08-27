@@ -1,0 +1,25 @@
+.container
+  .row
+    .col-md-10.col-md-offset-2
+      .section
+        %h4.section-title Ingreso
+        .section-body
+          .space20
+          %p Por favor ingrese sus datos de acceso. Si todav&iacute;a no se encuentra registrado, por favor presione el bot&oacute;n Registro.
+          .space20
+          = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal contact'}) do |f|
+            .form-group
+              %label.col-xs-12.col-sm-3.required{:for => "user_email"} Email
+              .col-xs-12.col-sm-12.col-md-9
+                = f.email_field :email, :autofocus => true, :class => 'form-control'
+            .form-group
+              %label.col-xs-12.col-sm-3.required{:for => "user_password"} Password
+              .col-xs-12.col-sm-12.col-md-9
+                = f.password_field :password, :class => 'form-control'
+            .form-group
+              .col-xs-12.col-sm-12
+                %ul.list-inline.list-unstyled
+                  %li
+                    = f.submit "Entrar", :class => 'btn btn-primary'
+                  %li
+                    %a.btn.btn-default{:href => new_user_registration_path} Registro

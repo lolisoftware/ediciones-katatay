@@ -1,0 +1,38 @@
+#header-main
+  .container
+    .row
+      .col-xs-6.col-sm-6.logo-container
+        %strong.logo.animated.fadeInRight
+          %a{:href => home_path}
+            = image_tag('edicioneskatataylogo.gif', :width => '75%', :onmouseover => "this.src = '/assets/edicioneskatataylogo_over.png'", :onmouseout => "this.src = '/assets/edicioneskatataylogo.gif'")
+
+      <!-- /logo -->
+      - if user_signed_in?
+        .col-xs-6.col-sm-6.cart-container
+          .header-cart.animated.fadeInLeft.animation-done
+            .inner
+              .relative
+                %a.btn.btn-iconedhref{:href => cart_path}
+                  %i.icon-shopcart
+                  %span
+                    = get_cart_items_count
+                    Item(s) - $
+                    = get_cart_items_price
+
+                <!-- CART ITEMS -->
+                .cart-items{:style => "display: none;"}
+                  .header
+                    = get_cart_items_count
+                    items agregados
+                  %ul.items.clearfix
+                    - get_cart_items.each do |cart|
+                      %li
+                        %a.item-name{:href => item_path(cart.item)}
+                          = cart.item.title
+                        %span.item-price
+                          = cart.amount
+                          &times;
+                          = cart.item.price
+                        .clearfix
+                  .footer
+                    %a{:href => cart_path} Ver todo

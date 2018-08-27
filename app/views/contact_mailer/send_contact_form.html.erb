@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Nuevo contacto desde la pagina</h1>
+
+<p>
+  Un usuario con el nombre: <%= @contact.name %>, correo: <%= @contact.email %> ha enviado el siguiente mensaje desde la
+  pagina web
+</p>
+
+<p>
+  Asunto: <%= @contact.subject %>
+  Mensaje: <%= @contact.message %>
+</p>
+</body>
+</html>

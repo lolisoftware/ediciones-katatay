@@ -1,0 +1,84 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require ./template/bootstrap.min
+ *= require ./template/style
+ *= require ./template/responsive
+ *= require ./template/animate
+ *= require ./template/custom-style
+ *= require ./template/nivo/nivo-slider
+ *= require ./template/nivo/themes/default/default
+ *= require ./template/fonts/open-sans/stylesheet
+ *= require ./template/fonts/icomoon/style
+ */
+
+#site-menu .inner > ul.material {
+  background: #8ca070;
+  background: -moz-linear-gradient(top,  #fdfdfd 0%, #8ca070 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#8ca070));
+  background: -webkit-linear-gradient(top,  #fdfdfd 0%,#8ca070 100%);
+  background: -o-linear-gradient(top,  #fdfdfd 0%,#8ca070 100%);
+  background: -ms-linear-gradient(top,  #fdfdfd 0%,#8ca070 100%);
+  background: linear-gradient(to bottom,  #fdfdfd 0%,#8ca070 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#8ca070',GradientType=0 );
+}
+
+.inline-form {
+  display: inline;
+}
+
+.widget-body ul ul {
+  margin-left: 15px;
+}
+
+.add-to-cart {
+  bottom: -10px !important;
+  color: #ff5757;
+  font-size: 24px;
+}
+
+.padding-top-20 {
+  padding-top: 20px;
+}
+
+.padding-bottom-20 {
+  padding-bottom: 20px;
+}
+
+.padding-bottom-80
+{
+  padding-bottom: 80px;
+}
+
+.thumbnail img {
+  height: 312px !important;
+}
+
+.distributor > p {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+ul.sub-menu > li {
+  a {
+    color: #ffffff;
+    background: #8ca070 !important;
+  }
+}
+
+.fix_height
+{
+  height: 480px;
+}
+
+.main-menu > li > a {
+    padding: 0 15px !important;
+}

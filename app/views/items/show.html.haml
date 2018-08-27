@@ -1,0 +1,68 @@
+.inner-action-bar
+  .container
+    .row
+      .col-xs-12.col-sm-12
+        .breadcrumbs
+          %ul.unstyled
+            %li.active
+              %a{:href => category_path(@item.category.name)}
+                = @item.category.name.capitalize
+
+.main-content
+  .container
+    .row
+      .col-xs-12.col-sm-8.col-lg-9.col-lg-offset-1.main
+        .section.product-single
+          .row
+            .col-xs-12.col-sm-4
+              .row
+                .col-md-12
+                  = image_tag(@item.image.url(:medium), :style => 'height: 390px;')
+              .row.padding-top-20
+                .col-md-12
+                  - if @item.index.exists?
+                    %div
+                      = link_to('Descargar &Iacute;ndice'.html_safe, @item.index.url, :target => :blank)
+                  - if @item.fulltext.exists? and @item.category.name == 'revista katatay'
+                    %div
+                      = link_to('Descargar Texto Completo'.html_safe, @item.fulltext.url, :target => :blank)
+              - if @item.reviews.count > 0
+                .row.padding-top-20
+                  .col-md-12
+                    %h6.section-title Rese&ntilde;as
+                    %ul
+                      - @item.reviews.each do |r|
+                        %li
+                          %a{:href => r.text, :target => 'blank'}= r.title
+            .col-xs-8.col-sm-8
+              .product-info.clearfix
+                %h4.title
+                  %a{:href => "#"}
+                    = @item.title
+                .description
+                  .text
+                    %p
+                      = raw @item.description
+                  .prices
+                    %span.off-price
+                      $
+                      = @item.price.to_i
+                  - if @item.has_stock && @item.category.name != 'ediciones digitales'
+                    = form_for @cart_form, url: cart_add_path(@item) do |f|
+                      .qty
+                        %label{:for => "amount"} Cantidad:
+                        = f.text_field(:amount, :value => "1")
+                        .space30.clearfix
+                      .add-to-cart
+                        %a.add-to-cart.btn.btn-primary.btn-iconed{:title => "Agregar al carrito", :href => "#"}
+                          %i.icon-shopcart
+                          %span Agregar al carrito
+                  - else
+                    - if @item.category.name != 'ediciones digitales'
+                      %span.add-to-cart Sin Stock
+                    - else
+                      = form_for @item, method: 'post', url: digital_buy_path() do |f|
+                        .add-to-cart
+                          %a.add-to-cart.btn.btn-primary.btn-iconed{:title => "Compra Digital", :href => "#"}
+                            %i.icon-shopcart
+                            %span Compra Digital
