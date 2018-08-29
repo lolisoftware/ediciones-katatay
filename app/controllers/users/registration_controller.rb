@@ -2,15 +2,15 @@ class Users::RegistrationController < Devise::RegistrationsController
   layout 'public_pages'
 
   def create
-#    if verify_recaptcha
+    if verify_recaptcha
       super
-#    else
-#      build_resource(sign_up_params)
-#      clean_up_passwords(resource)
-#      flash.now[:alert] = "El captcha es incorrecto. Inténtelo nuevamente."
-#      flash.delete :recaptcha_error
-#      render :new
-#    end
+    else
+      build_resource(sign_up_params)
+      clean_up_passwords(resource)
+      flash.now[:alert] = "El captcha es incorrecto. Inténtelo nuevamente."
+      flash.delete :recaptcha_error
+      render :new
+    end
   end
 
   def update

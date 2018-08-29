@@ -41,5 +41,7 @@
               .col-xs-12.col-sm-12.col-md-9
                 = f.password_field :password_confirmation, :class => 'form-control', :required => 'required'
             .form-group
+              .col-xs-12.col-sm-12= recaptcha_tags
+            .form-group
               .col-xs-12.col-sm-12
                 = f.submit "Registrarme", :class => 'btn btn-primary'
