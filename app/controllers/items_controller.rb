@@ -15,5 +15,6 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @cart_form = Cart.new
+    @is_item_owned = Cart.includes(:order).where('user' => current_user , 'item_id' => params[:id], 'orders.payment' => true).any?
   end
 end

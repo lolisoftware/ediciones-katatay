@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :surname, presence: true
-  validates :birthdate, presence: true
+  #validates :birthdate, presence: true
 end

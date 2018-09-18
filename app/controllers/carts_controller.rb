@@ -84,7 +84,7 @@ class CartsController < ApplicationController
   end
 
   def digital_buy
-    require 'mercadopago'
+    require 'mercadopago.rb'
     @item = Item.find(params[:id])
     #Creo un nuevo cart, le agrego el item y hago el checkout a mercadopago
     cart = Cart.new
@@ -97,21 +97,26 @@ class CartsController < ApplicationController
       if @order.save
         #PRODUCTION MODE
         mp = MercadoPago.new('3458896497974347', 'y9LqEl9urFP2OQaVGj7Y2SrwRfInVfVF')
+        #mp = MercadoPago::Client.new('3458896497974347', 'y9LqEl9urFP2OQaVGj7Y2SrwRfInVfVF')
+        puts "/////////////////////////////////////////////////"
+        puts "#{mp}"
 
         #SANDBOX MODE
         #mp = MercadoPago.new('5600753441758584', 'PFbwNiOCnVrrEh6sYlEeOuGV0RdFmbq8')
         #mp.sandbox_mode(true)
         items = Array.new
         items.push(:title => 'Compra Digital en Ediciones Katatay', :quantity => 1, :unit_price => @item.price.to_i, :currency_id => 'ARS')
-        preferenceData = Hash[
-            "items" => items,
-            "external_reference" => @order.id,
-            "back_urls" => {
-                "success" => "http://www.edicioneskatatay.com.ar/users/edit"
+        preferenceData = {
+            items: items,
+            external_reference: @order.id,
+            back_urls: {
+                success: "http://www.edicioneskatatay.com.ar/users/edit"
             }
-        ]
+        }
         preference = mp.create_preference(preferenceData)
-
+        puts "/////////////////////////////////////////////////"
+        puts "#{preference}"
+        puts "/////////////////////////////////////////////////"
         #PRODUCTION MODE
         @order.url = preference["response"]["init_point"]
         #SANDBOX MODE

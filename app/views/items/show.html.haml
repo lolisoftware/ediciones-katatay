@@ -23,7 +23,7 @@
                   - if @item.index.exists?
                     %div
                       = link_to('Descargar &Iacute;ndice'.html_safe, @item.index.url, :target => :blank)
-                  - if @item.fulltext.exists? and @item.category.name == 'revista katatay'
+                  - if @item.fulltext.exists? and (@is_item_owned or @item.category.name == 'revista katatay')
                     %div
                       = link_to('Descargar Texto Completo'.html_safe, @item.fulltext.url, :target => :blank)
               - if @item.reviews.count > 0
