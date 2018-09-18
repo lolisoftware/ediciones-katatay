@@ -19,3 +19,9 @@
 
 # Ignore vendor
 /vendor/
+#Ignore configuration files with keys
+/config/*.rb
+/config/*.yml
+/config/deploy
+#Ignore configuration form gems
+Gemfile.lock

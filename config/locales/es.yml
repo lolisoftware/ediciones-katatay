@@ -1,0 +1,28 @@
+es:
+  errors:
+    messages:
+      not_saved: Revise los siguientes errores
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: El email es un campo requerido
+            password:
+              blank: La contraseña es un campo requerido
+  devise:
+    failure:
+      user:
+        invalid: Usuario o contraseña invalidos
+    registration:
+      user:
+        updated: Su informacion de usuario ha sido actualizada correctamente
+        signed_up_but_unconfirmed: Un email de confirmacion ha sido enviado a su correo, por favor, reviselo para poder completar la registracion
+
+  views:
+    pagination:
+      previous: "<"
+      next: ">"
+      truncate: "..."
